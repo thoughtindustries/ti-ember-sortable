@@ -13,14 +13,34 @@ Simply include the `ti-sortable-list.{amd,cjs,global}.js` file your in favorite 
 Then, just use the component:
 
 ```handlebars
-{{#ti-sortable-list items=links class="items__list" action="save"}}
+{{#ti-ember-sortable items=links class="items__list" action="save"}}
   {{#each link in links}}
 	<li>
       <i class="handle">Move</i>
       {{input value=link.label}}
     </li>
   {{/each}}
-{{/ti-sortable-list}}
+{{/ti-ember-sortable}}
+```
+
+If you are using ember-cli or ember-app-kit, you will need to use an initializer like so:
+
+```javascript
+import EmberSortable from 'ti-ember-sortable';
+
+Ember.onLoad('Ember.Application', function(application) {
+  application.initializer({
+    name: 'ti-ember-sortable',
+
+    initialize: function(container, application) {
+      container.register('component:ti-ember-sortable', EmberSortable);
+    }
+  });
+});
+
+export default Ember.Application.extend({
+  Resolver: Resolver['default']
+});
 ```
 
 Rationale
