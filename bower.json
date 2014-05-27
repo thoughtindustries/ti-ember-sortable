@@ -1,0 +1,31 @@
+{
+  "name": "ti-ember-sortable",
+  "version": "1.0.0",
+  "description": "Sortable lists for Ember.js.",
+  "main": [ "main.js" ],
+  "dependencies": {
+    "Sortable": "^0.1.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thoughtindustries/ti-ember-sortable.git"
+  },
+  "keywords": [
+    "sortable",
+    "sort",
+    "ember",
+    "emberjs"
+  ],
+  "author": "Chris McC",
+  "license": "MIT",
+  "ignore": [
+    "bower_components",
+    "bower.json",
+    "Gulpfile.js",
+    "package.json",
+    "test",
+    "ti-ember-sortable.js",
+    "node_modules",
+    "Makefile"
+  ]
+}
