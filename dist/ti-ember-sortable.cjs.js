@@ -1,16 +1,31 @@
 "use strict";
+var idCounter = 0;
+function uniqueId() {
+  var id = ++idCounter + '';
+  return id;
+}
+
 var TiEmberSortable = Ember.Component.extend({
   tagName: 'ul',
   contentsBeforeDrop: null,
   handle: '.handle',
   ghostClass: 'sortable-ghost',
+  draggableSelector: 'li',
 
   setupSortable: function() {
     this.destroySortable();
     var list = this.$();
 
+    // assign ids for later detached element matching
+    this.$(this.get('draggableSelector')).each(function(i, ele) {
+      ele = $(ele);
+      if (!ele.attr('id')) {
+        ele.attr('id', uniqueId());
+      }
+    });
+
     this.set('sortable', new Sortable(list[0], {
-      draggable: 'li',
+      draggable: this.get('draggableSelector'),
       handle: this.get('handle'),
       ghostClass: this.get('ghostClass'),
       onUpdate: Ember.run.bind(this, this.onUpdate)
@@ -30,8 +45,7 @@ var TiEmberSortable = Ember.Component.extend({
 
     Ember.run(this, function() {
       var itemElement = $(evt.item),
-        parent = itemElement.parent(),
-        newIndex = parent.find('li').index(itemElement),
+        newIndex = this.$(this.get('draggableSelector')).index(itemElement),
         items = this.get('items'),
         item;
 
@@ -39,13 +53,15 @@ var TiEmberSortable = Ember.Component.extend({
       this.$().html(this.get('contentsBeforeDrop'));
 
       // find the element that was dragged in its old position
-      item =  items.objectAt(parent.find('li').index($('#' + itemElement.attr('id'))));
+      item = items.objectAt(this.$(this.get('draggableSelector')).index($('#' + itemElement.attr('id'))));
 
       // then apply changes to object instead
       items.removeObject(item);
       items.insertAt(newIndex, item);
-      this.setupSortable();
-      this.sendAction('action', items, item);
+      Ember.run.next(this, function() {
+        this.setupSortable();
+        this.sendAction('action', items, item);
+      });
     });
   },
 
