@@ -5,7 +5,7 @@ Sortable lists for Ember.js.
 
 ![Sortable Example](https://cloud.githubusercontent.com/assets/44855/3088265/d46da0e6-e56b-11e3-8649-dc7f9b45bc5a.gif)
 
-[JSBin Example](http://jsbin.com/hicineku/1)
+[JSBin Example](http://jsbin.com/hicineku/1) -- [JSBin example with binding](http://jsbin.com/hicineku/3)
 
 Usage
 -----
