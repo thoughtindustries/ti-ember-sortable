@@ -17,14 +17,6 @@
       this.destroySortable();
       var list = this.$();
 
-      // assign ids for later detached element matching
-      this.$(this.get('draggableSelector')).each(function(i, ele) {
-        ele = $(ele);
-        if (!ele.attr('id')) {
-          ele.attr('id', uniqueId());
-        }
-      });
-
       this.set('sortable', new Sortable(list[0], {
         draggable: this.get('draggableSelector'),
         handle: this.get('handle'),
@@ -32,8 +24,28 @@
         onUpdate: Ember.run.bind(this, this.onUpdate)
       }));
 
+      this.assignIds();
+
       list.on('dragstart', Ember.run.bind(this, this.onDragStart));
     }.on('didInsertElement'),
+
+    watchForListChanges: function() {
+      var _this = this;
+
+      this.$().on('DOMNodeInserted', function() {
+        Ember.run.debounce(_this, _this.assignIds, 50);
+      });
+    }.on('didInsertElement'),
+
+    // assign ids for later detached element matching
+    assignIds: function() {
+      this.$(this.get('draggableSelector')).each(function(i, ele) {
+        ele = $(ele);
+        if (!ele.attr('id')) {
+          ele.attr('id', uniqueId());
+        }
+      });
+    },
 
     onDragStart: function() {
       this.set('contentsBeforeDrop', this.$().children().clone());

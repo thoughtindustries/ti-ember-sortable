@@ -1,6 +1,6 @@
 {
   "name": "ti-ember-sortable",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Sortable lists for Ember.js.",
   "main": [ "main.js" ],
   "dependencies": {
