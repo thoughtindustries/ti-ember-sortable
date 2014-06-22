@@ -50,7 +50,7 @@ Options:
 
 You can specify a handle selector via `{{#ti-ember-sortable handle="selector.goes.here"}}`. By default this is set to `.handle`.
 
-You can also specifythe draggable selector via `{{#ti-ember-sortable draggableSelector="selector.goes.here"}}`. By default this is set to `li`.
+You can also specify the draggable selector via `{{#ti-ember-sortable draggableSelector="selector.goes.here"}}`. By default this is set to `li`.
 
 Finally, you can specify the class name of the 'ghost' that gets created while dragging via `{{#ti-ember-sortable ghostClass="class-goes-here"}}` By default this is `sortable-ghost`.
 
