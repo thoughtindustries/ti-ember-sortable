@@ -5,7 +5,7 @@ Sortable lists for Ember.js.
 
 ![Sortable Example](https://cloud.githubusercontent.com/assets/44855/3088265/d46da0e6-e56b-11e3-8649-dc7f9b45bc5a.gif)
 
-[JSBin Example](http://jsbin.com/hicineku/1) -- [JSBin example with binding](http://jsbin.com/hicineku/3)
+[JSBin Example](http://jsbin.com/hicineku/4) -- [JSBin example with binding](http://jsbin.com/hicineku/5)
 
 Usage
 -----
@@ -44,6 +44,17 @@ export default Ember.Application.extend({
   Resolver: Resolver['default']
 });
 ```
+
+Options:
+--------
+
+You can specify a handle selector via `{{#ti-ember-sortable handle="selector.goes.here"}}`. By default this is set to `.handle`.
+
+You can also specifythe draggable selector via `{{#ti-ember-sortable draggableSelector="selector.goes.here"}}`. By default this is set to `li`.
+
+Finally, you can specify the class name of the 'ghost' that gets created while dragging via `{{#ti-ember-sortable ghostClass="class-goes-here"}}` By default this is `sortable-ghost`.
+
+ps. as with all components, you can specify `tagName` and `class`.
 
 Rationale
 ---------
