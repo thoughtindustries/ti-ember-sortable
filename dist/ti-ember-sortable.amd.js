@@ -3,6 +3,7 @@ define("ti-ember-sortable",
   function(__exports__) {
     "use strict";
     var idCounter = 0;
+
     function uniqueId() {
       var id = ++idCounter + '';
       return id;
@@ -41,12 +42,14 @@ define("ti-ember-sortable",
 
       // assign ids for later detached element matching
       assignIds: function() {
-        this.$(this.get('draggableSelector')).each(function(i, ele) {
-          ele = $(ele);
-          if (!ele.attr('id')) {
-            ele.attr('id', uniqueId());
-          }
-        });
+        if (!this.get('isDestroying') && !this.get('isDestroyed') && this.$) {
+          this.$(this.get('draggableSelector')).each(function(i, ele) {
+            ele = $(ele);
+            if (!ele.attr('id')) {
+              ele.attr('id', uniqueId());
+            }
+          });
+        }
       },
 
       onDragStart: function() {
