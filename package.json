@@ -1,7 +1,7 @@
 {
   "name": "ti-ember-sortable",
   "description": "Sortable lists for Ember.js.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": true,
   "author": "Chris McC",
   "license": "MIT",
