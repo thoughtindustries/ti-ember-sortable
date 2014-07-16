@@ -8,6 +8,7 @@ function uniqueId() {
 
 var TiEmberSortable = Ember.Component.extend({
   tagName: 'ul',
+  group: null,
   contentsBeforeDrop: null,
   handle: '.handle',
   ghostClass: 'sortable-ghost',
@@ -19,6 +20,7 @@ var TiEmberSortable = Ember.Component.extend({
 
     this.set('sortable', new Sortable(list[0], {
       draggable: this.get('draggableSelector'),
+      group: this.get('group'),
       handle: this.get('handle'),
       ghostClass: this.get('ghostClass'),
       onUpdate: Ember.run.bind(this, this.onUpdate)
