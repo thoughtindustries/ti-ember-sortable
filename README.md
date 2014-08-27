@@ -27,22 +27,24 @@ Then, just use the component:
 
 If you are using ember-cli or ember-app-kit, you will need to use an initializer like so:
 
+```
+//In your Brocfile.js
+app.import('bower_components/ti-ember-sortable/dist/ti-ember-sortable.amd.js', {
+  exports: {
+    'ti-ember-sortable': ['default']
+  }
+});
+```
+
 ```javascript
 import EmberSortable from 'ti-ember-sortable';
 
-Ember.onLoad('Ember.Application', function(application) {
-  application.initializer({
-    name: 'ti-ember-sortable',
-
-    initialize: function(container, application) {
-      container.register('component:ti-ember-sortable', EmberSortable);
-    }
-  });
-});
-
-export default Ember.Application.extend({
-  Resolver: Resolver['default']
-});
+export default {
+  name: 'ti-ember-sortable',
+  initialize: function(container, application) {
+    container.register('component:ti-ember-sortable', EmberSortable);
+  }
+};
 ```
 
 Options:
