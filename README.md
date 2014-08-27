@@ -75,3 +75,5 @@ TODO
 ----
 
 Tests!
+
+Now that `metal-views` is out, metamorphs are removed and a lot of this code could probably be cleaned up.
