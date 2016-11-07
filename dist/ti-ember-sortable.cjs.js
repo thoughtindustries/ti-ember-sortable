@@ -13,6 +13,9 @@ var TiEmberSortable = Ember.Component.extend({
   handle: '.handle',
   ghostClass: 'sortable-ghost',
   draggableSelector: 'li',
+  isDisabled: false,
+  model: null,
+  classNameBindings: [':ember-sortable', 'isDisabled:ember-sortable--disabled:ember-sortable--enabled'],
 
   setupSortable: function() {
     this.destroySortable();
@@ -51,8 +54,13 @@ var TiEmberSortable = Ember.Component.extend({
     }
   },
 
-  onDragStart: function() {
-    this.set('contentsBeforeDrop', this.$().children().clone());
+  onDragStart: function(evt) {
+    if (this.get('isDisabled')) {
+      evt.preventDefault();
+      return false;
+    } else {
+      this.set('contentsBeforeDrop', this.$().children().clone());
+    }
   },
 
   onUpdate: function (evt) {
@@ -76,15 +84,35 @@ var TiEmberSortable = Ember.Component.extend({
       items.removeObject(item);
       items.insertAt(newIndex, item);
       Ember.run.next(this, function() {
-        this.setupSortable();
+        if (this.get('model') && this.get('model').one) {
+          this.destroySortable();
+          this.set('isDisabled', true);
+          var eventName = this.get('model.isNew') ? 'didCreate' : 'didUpdate';
+
+          this.get('model').one(eventName, Ember.run.bind(this, this.removeDisabled));
+        } else {
+          this.setupSortable();
+        }
+
         this.sendAction('action', items, item);
       });
     });
   },
 
+  removeDisabled: function() {
+    if (!this.get('isDestroyed')) {
+      this.set('isDisabled', false);
+      this.setupSortable();
+    }
+  },
+
   destroySortable: function() {
     if (this.get('sortable')) {
-      this.get('sortable').destroy();
+      try {
+        this.get('sortable').destroy();
+      } catch (e) {
+        // ignore
+      }
     }
   }.on('willDestroyElement')
 });
