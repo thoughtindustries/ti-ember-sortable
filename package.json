@@ -2,13 +2,18 @@
   "name": "ti-ember-sortable",
   "description": "Sortable lists for Ember.js.",
   "version": "3.0.0",
-  "private": true,
   "author": "Chris McC",
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/thoughtindustries/ti-ember-sortable.git"
   },
+  "keywords": [
+    "sortable",
+    "sort",
+    "ember",
+    "emberjs"
+  ],
   "devDependencies": {
     "event-stream": "^3.1.0",
     "gulp": "^3.5.2",
