@@ -14,19 +14,25 @@ var TiEmberSortable = Ember.Component.extend({
   draggableSelector: 'li',
   isDisabled: false,
   model: null,
-  classNameBindings: [':ember-sortable', 'isDisabled:ember-sortable--disabled:ember-sortable--enabled'],
+  classNameBindings: [
+    ':ember-sortable',
+    'isDisabled:ember-sortable--disabled:ember-sortable--enabled'
+  ],
 
   setupSortable: function() {
     this.destroySortable();
     var list = this.$();
 
-    this.set('sortable', new Sortable(list[0], {
-      draggable: this.get('draggableSelector'),
-      group: this.get('group'),
-      handle: this.get('handle'),
-      ghostClass: this.get('ghostClass'),
-      onUpdate: Ember.run.bind(this, this.onUpdate)
-    }));
+    this.set(
+      'sortable',
+      new Sortable(list[0], {
+        draggable: this.get('draggableSelector'),
+        group: this.get('group') || Math.random(),
+        handle: this.get('handle'),
+        ghostClass: this.get('ghostClass'),
+        onUpdate: Ember.run.bind(this, this.onUpdate)
+      })
+    );
 
     this.assignIds();
 
@@ -44,12 +50,14 @@ var TiEmberSortable = Ember.Component.extend({
   // assign ids for later detached element matching
   assignIds: function() {
     if (!this.get('isDestroying') && !this.get('isDestroyed') && this.$) {
-      this.$(this.get('draggableSelector')).each(function(i, ele) {
-        ele = $(ele);
-        if (!ele.attr('id')) {
-          ele.attr('id', uniqueId());
-        }
-      });
+      this.$()
+        .children(this.get('draggableSelector'))
+        .each(function(i, ele) {
+          ele = $(ele);
+          if (!ele.attr('id')) {
+            ele.attr('id', uniqueId());
+          }
+        });
     }
   },
 
@@ -58,18 +66,25 @@ var TiEmberSortable = Ember.Component.extend({
       evt.preventDefault();
       return false;
     } else {
-      this.set('contentsBeforeDrop', this.$().children().clone());
+      this.set(
+        'contentsBeforeDrop',
+        this.$()
+          .children()
+          .clone()
+      );
     }
   },
 
-  onUpdate: function (evt) {
+  onUpdate: function(evt) {
     if (!this.get('contentsBeforeDrop')) {
       return;
     }
 
     Ember.run(this, function() {
       var itemElement = $(evt.item),
-        newIndex = this.$(this.get('draggableSelector')).index(itemElement),
+        newIndex = this.$()
+          .children(this.get('draggableSelector'))
+          .index(itemElement),
         items = this.get('items'),
         item;
 
@@ -77,7 +92,11 @@ var TiEmberSortable = Ember.Component.extend({
       this.$().html(this.get('contentsBeforeDrop'));
 
       // find the element that was dragged in its old position
-      item = items.objectAt(this.$(this.get('draggableSelector')).index($('#' + itemElement.attr('id'))));
+      item = items.objectAt(
+        this.$()
+          .children(this.get('draggableSelector'))
+          .index($('#' + itemElement.attr('id')))
+      );
 
       // then apply changes to object instead
       items.removeObject(item);

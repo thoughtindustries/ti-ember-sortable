@@ -1,7 +1,7 @@
 {
   "name": "ti-ember-sortable",
   "description": "Sortable lists for Ember.js.",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
   "author": "Chris McC",
   "license": "MIT",
@@ -14,5 +14,8 @@
     "gulp": "^3.5.2",
     "gulp-es6-module-transpiler": "^0.1.0",
     "gulp-rename": "^1.2.0"
+  },
+  "dependencies": {
+    "sortablejs": "^0.7.2"
   }
 }
