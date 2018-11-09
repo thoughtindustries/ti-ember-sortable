@@ -10,7 +10,7 @@ Sortable lists for Ember.js.
 Usage
 -----
 
-Simply include the `ti-sortable-list.{amd,cjs,global}.js` file your in favorite asset pipeline, or use bower, or copy/paste, or whatever you like.
+Simply include the `ti-sortable-list.{amd,cjs,global}.js` file your in favorite asset pipeline, or copy/paste, or whatever you like.
 
 Then, just use the component:
 
@@ -29,7 +29,7 @@ If you are using ember-cli or ember-app-kit, you will need to use an initializer
 
 ```
 //In your Brocfile.js
-app.import('bower_components/ti-ember-sortable/dist/ti-ember-sortable.amd.js', {
+app.import('node_modules/ti-ember-sortable/dist/ti-ember-sortable.amd.js', {
   exports: {
     'ti-ember-sortable': ['default']
   }
