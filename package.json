@@ -15,7 +15,7 @@
     "emberjs"
   ],
   "devDependencies": {
-    "event-stream": "^3.1.0",
+    "event-stream": "=3.3.4",
     "gulp": "^3.5.2",
     "gulp-es6-module-transpiler": "^0.1.0",
     "gulp-rename": "^1.2.0"
