@@ -18,6 +18,7 @@ define("ti-ember-sortable",
       draggableSelector: 'li',
       isDisabled: false,
       model: null,
+      mutationObserver: null,
       classNameBindings: [
         ':ember-sortable',
         'isDisabled:ember-sortable--disabled:ember-sortable--enabled'
@@ -46,9 +47,10 @@ define("ti-ember-sortable",
       watchForListChanges: function() {
         var _this = this;
 
-        this.$().on('DOMNodeInserted', function() {
-          Ember.run.debounce(_this, _this.assignIds, 50);
-        });
+        const observer = new MutationObserver(() => Ember.run.debounce(_this, _this.assignIds, 50));
+        observer.observe(this.$()[0], { childList: true });
+
+        this.set('mutationObserver', observer);
       }.on('didInsertElement'),
 
       // assign ids for later detached element matching
@@ -135,6 +137,13 @@ define("ti-ember-sortable",
           } catch (e) {
             // ignore
           }
+        }
+      }.on('willDestroyElement'),
+
+      destroyMutationObserver: function () {
+        const observer = this.get('mutationObserver');
+        if (observer) {
+          observer.disconnect();
         }
       }.on('willDestroyElement')
     });
